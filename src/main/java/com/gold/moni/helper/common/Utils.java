@@ -1,4 +1,4 @@
-package com.gold.moni.helper;
+package com.gold.moni.helper.common;
 
 import java.util.Collection;
 

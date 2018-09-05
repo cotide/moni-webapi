@@ -5,9 +5,8 @@
 
     <groupId>com.gold.moni</groupId>
     <artifactId>webapi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>webapp</name>
     <description>模拟盘 webapp</description>
     <!-- spring boot  -->
@@ -24,6 +23,9 @@
         <fastjson.version>1.2.49</fastjson.version>
         <druid.version>1.1.10</druid.version>
         <springfox.version>2.9.2</springfox.version>
+        <!-- mysql version -->
+        <mysql.version>8.0.11</mysql.version>
+        <persistence-api.version>1.0.2</persistence-api.version>
     </properties>
     <dependencies>
         <!-- spring boot -->
@@ -36,6 +38,11 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
+                <!--&lt;!&ndash; 排除内置的JPA组件 &ndash;&gt;-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.springframework.boot</groupId>-->
+                    <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+                <!--</exclusion>-->
             </exclusions>
         </dependency>
         <dependency>
@@ -93,7 +100,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <version>${mysql.version}</version>
         </dependency>
         <!-- fast json -->
         <dependency>
@@ -107,6 +114,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <scope>provided</scope>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>${persistence-api.version}</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

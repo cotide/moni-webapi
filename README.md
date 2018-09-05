@@ -1,17 +1,80 @@
-## moni-webapi
+## moni-webapi 
+ 
+ 基于SpringBoot的WebApi示例
+ 
+ ## 访问地址
+ 
+ > http://localhost:9200/swagger-ui.html
+ 
+ ## 引用
+ 
+ - [spring-boot](https://github.com/spring-projects/spring-boot)
+ - [swagger2](https://github.com/springfox/springfox) 
+ - [druid](https://github.com/alibaba/druid)
+ - [sql2o-plus](https://github.com/cotide/sql2o-plus)
+ - [log4j2](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-starters/spring-boot-starter-log4j2)
+ - [fastjson](https://github.com/alibaba/fastjson) 
 
-
-基于SpringBoot的WebApi示例
-
-## 访问地址
-
-> http://localhost:9200/swagger-ui.html
-
-## 引用
-
-- [spring-boot](https://github.com/spring-projects/spring-boot)
-- [swagger2](https://github.com/springfox/springfox) 
-- [sql2o-plus](https://github.com/cotide/sql2o-plus)
-- [log4j2](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-starters/spring-boot-starter-log4j2)
+ > 访问[pom.xml](pom.xml)
  
  
+ ## 特点
+ 
+> 1.统一结果返回,格式如下:
+ 
+ 
+属性 | 描述  
+---|--- 
+code | 状态编码  
+isSuccess | 请求是否成功 (指当前业务处理是否正确)  
+msg | 消息 
+data | 数据 
+
+ 
+- 没有结果数据-格式
+
+```json
+{
+  "code": 200,
+  "isSuccess": true, 
+  "msg": ""
+}
+```
+
+- 有结果数据-格式
+ 
+```json
+{
+  "code": 200,
+  "data": {
+    "createTime": "2018-09-05 18:03:15",
+    "login": 1000,
+    "userId": 29,
+    "userName": "Hello World"
+  },
+  "isSuccess": true,
+  "msg": ""
+}
+```
+ 
+- 异常数据-格式 
+ 
+
+状态 | 描述 | JSON
+---|---|---
+401 | 非法权限 | {"code":401,"isSuccess":false,"msg":"异常信息"} 
+500 | 服务器异常 | {"code":500,"isSuccess":false,"msg":"异常信息"}
+510 | 请求参数异常 | {"code":510,"isSuccess":false,"msg":"异常信息"}
+510 | 业务异常 | {"code":511,"isSuccess":false,"msg":"异常信息"}
+
+ 
+> 2.Swagger的集成 (多版本) 
+
+> 3.使用fastJson进行解析响应
+
+> 4.使用[sql2o-plus](https://github.com/cotide/sql2o-plus)
+
+
+## 待续
+
+......

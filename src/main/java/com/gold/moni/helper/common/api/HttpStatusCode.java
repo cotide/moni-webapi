@@ -20,7 +20,7 @@ public  enum HttpStatusCode implements IValuedEnum
 
     OK(200,"OK"),
     Unauthorized(401,"非法权限"),
-    RequestDataError(510,"请求数据异常"),
+    RequestDataError(510,"请求参数异常"),
     BusinessError(511,"业务异常"),
     InternalServerError(500,"服务器异常");
 

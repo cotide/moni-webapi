@@ -8,6 +8,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.gold.moni.helper.common.api.HttpStatusCode;
 import com.gold.moni.helper.common.api.WebResult;
 import com.gold.moni.webapi.handler.ApplicationExceptionResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,46 +20,58 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.*;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  *  swagger 配置
  */
 @Configuration
-@ConditionalOnProperty(prefix = "swagger",value = {"enable"},havingValue = "true")
 @EnableSwagger2
 @Profile({ "dev", "local" })
 public class WebApiConfig  extends WebMvcConfigurationSupport
 {
+    @Autowired
+    protected SwaggerConfig swagger;
+
+    // region 版本定义
 
     @Bean
-    public Docket creawteRestApi(){
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                 // 指定扫描ApiController 包位置
-                .apis(RequestHandlerSelectors.basePackage("com.gold.moni.webapi.controller"))
-                .paths(PathSelectors.any())
-                .build()
-                .directModelSubstitute(java.time.LocalDate.class,java.sql.Date.class)
-                .directModelSubstitute(java.time.OffsetDateTime.class,java.util.Date.class)
-                .apiInfo(apiInfo())
-                .useDefaultResponseMessages(false)
-                // 自定义可选参数
-                .globalOperationParameters(operationParameters())
-                // 自定义全局相应格式
-                .globalResponseMessage(RequestMethod.GET,responseMessage())
-                .globalResponseMessage(RequestMethod.POST,responseMessage())
-                .globalResponseMessage(RequestMethod.PUT,responseMessage())
-                .globalResponseMessage(RequestMethod.DELETE,responseMessage());
-
+    public Docket swaggerApi_v1(){
+        return swagger.build("v1.0","1.0.0");
     }
 
+    @Bean
+    public Docket swaggerApi_v1_1(){
+        return swagger.build("v1.1","1.1.0");
+    }
+
+    @Bean
+    public Docket swaggerApi_v1_2(){
+        return swagger.build("v1.2","1.2.0");
+    }
+
+    @Bean
+    public Docket swaggerApi_v2(){
+        return swagger.build("v2.0","2.0.0");
+    }
+
+    @Bean
+    public Docket swaggerApi_v2_1(){
+        return swagger.build("v2.1","2.1.0");
+    }
+
+    // endregion
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -108,60 +121,4 @@ public class WebApiConfig  extends WebMvcConfigurationSupport
 
     // region Helper
 
-    private ApiInfo apiInfo(){
-        return new ApiInfoBuilder()
-                .title("模拟盘 api")
-                .description("内部接口，不外用")
-                .version("1.0.0")
-                .build();
-    }
-
-
-    /**
-     * 状态信息描述
-     * @return
-     */
-    private ArrayList responseMessage()
-    {
-        ArrayList globalResponseMessage = new ArrayList();
-
-        // 循环遍历接口状态信息
-        for ( HttpStatusCode item :HttpStatusCode.values())
-        {
-            StringBuilder outStr = new StringBuilder();
-            // 响应数据格式
-            WebResult resultModel = new WebResult(item.getRemark(),item);
-            outStr.append(String.format("[%s]",item.getRemark()));
-            outStr.append(String.format("[JSON=]%s", JSON.toJSONString(resultModel)));
-            globalResponseMessage.add(
-                    new ResponseMessageBuilder()
-                            .code(item.getValue())
-                            .message(outStr.toString())
-                            .build());
-        }
-
-        return globalResponseMessage;
-    }
-
-
-    /**
-     * 可选参数描述
-     * @return
-     */
-    private ArrayList operationParameters()
-    {
-
-        ArrayList globalParameters = new ArrayList();
-//        globalParameters.add(new ParameterBuilder()
-//                .name("header")
-//                .description("Description of header")
-//                .modelRef(new ModelRef("string"))
-//                .parameterType("header")
-//                .required(true)
-//                .build());
-        return globalParameters;
-
-    }
-
-    // endregion
 }

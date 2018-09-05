@@ -12,6 +12,7 @@ import com.gold.moni.helper.fastjson.FastjsonFilterUtil;
 import com.gold.moni.helper.logging.Log4jUtil;
 import org.omg.CORBA.portable.ApplicationException;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,25 +51,31 @@ public class ApplicationExceptionResolver implements HandlerExceptionResolver {
      */
     private WebResult resolveExceptionCustom(Exception ex) {
 
-        WebResult model =
-                new WebResult(
-                        ex.getMessage(),
-                        HttpStatusCode.InternalServerError);
-
-        if (ex instanceof UnauthenticatedException) {
+        WebResult model;
+        if(ex instanceof  MethodArgumentNotValidException)
+        {
+            // 实体验证异常
+            model = new WebResult(((MethodArgumentNotValidException) ex)
+                    .getBindingResult()
+                    .getFieldError().getDefaultMessage(),
+                    HttpStatusCode.RequestDataError);
+        }else if (ex instanceof UnauthenticatedException) {
             // 没有权限的异常
-            new WebResult(ex.getMessage(), HttpStatusCode.Unauthorized);
+            model =  new WebResult(ex.getMessage(), HttpStatusCode.Unauthorized);
         }
         else if(ex instanceof BusinessException)
         {
             // 业务异常
-            new WebResult(ex.getMessage(),HttpStatusCode.BusinessError);
+            model =  new  WebResult(ex.getMessage(),HttpStatusCode.BusinessError);
         }
         else {
+
             // 未知错误
-            new WebResult(ex.getMessage(), HttpStatusCode.InternalServerError);
+            model =  new WebResult(ex.getMessage(), HttpStatusCode.InternalServerError);
         }
-        return model;
+        return model==null
+                ?new WebResult(ex.getMessage(),HttpStatusCode.InternalServerError)
+                :model;
     }
 
 
@@ -79,41 +86,7 @@ public class ApplicationExceptionResolver implements HandlerExceptionResolver {
     protected void writeJsonByFilter(HttpServletResponse response,
                                      Object object, String[] includesProperties,
                                      String[] excludesProperties) {
-//        super.configureMessageConverters(converters);
-//
-//        converters.add(fastConverter);
-
-
         try {
-
-
-
-//            // excludes优先于includes
-//            FastjsonFilterUtil  filter = new FastjsonFilterUtil();
-//            if (excludesProperties != null && excludesProperties.length > 0) {
-//                filter.getExcludes().addAll(
-//                        Arrays.<String> asList(excludesProperties));
-//            }
-//            if (includesProperties != null && includesProperties.length > 0) {
-//                filter.getIncludes().addAll(
-//                        Arrays.<String> asList(includesProperties));
-//            }
-
-//            // 1.定义一个convert 转换消息的对象
-//            FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
-//            // 2 添加fastjson 的配置信息 比如 是否要格式化 返回的json数据
-//            FastJsonConfig fastJsonConfig = new FastJsonConfig();
-//            fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
-//            fastConverter.setFastJsonConfig(fastJsonConfig);
-//
-//            List<MediaType> fastMediaTypes = new ArrayList<>();
-//            // 格式化日期
-//            fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
-//            // 解决乱码的问题
-//            fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-//            fastConverter.setSupportedMediaTypes(fastMediaTypes);
-
-
             String json = JSON.toJSONString(object);
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(json);

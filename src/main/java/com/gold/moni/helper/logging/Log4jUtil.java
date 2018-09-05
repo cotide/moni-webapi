@@ -1,6 +1,6 @@
 package com.gold.moni.helper.logging;
 
-import com.gold.moni.helper.Utils;
+import com.gold.moni.helper.common.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

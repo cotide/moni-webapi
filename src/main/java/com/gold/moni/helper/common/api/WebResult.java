@@ -1,7 +1,5 @@
 package com.gold.moni.helper.common.api;
 
-import com.gold.moni.helper.common.api.HttpStatusCode;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,7 +31,7 @@ public class WebResult {
         this.isSuccess = isSuccess;
         if(isSuccess==true)
         {
-            this.statusCode = HttpStatusCode.OK;
+            this.code = HttpStatusCode.OK;
         }
     }
 
@@ -44,7 +42,7 @@ public class WebResult {
     public WebResult(String msg){
         this.msg = msg;
         this.isSuccess = true;
-        this.statusCode = HttpStatusCode.OK;
+        this.code = HttpStatusCode.OK;
     }
 
 
@@ -56,7 +54,7 @@ public class WebResult {
     public WebResult(String msg,HttpStatusCode statusCode){
 
         this.msg = msg;
-        this.statusCode = statusCode;
+        this.code = statusCode;
         if(statusCode== HttpStatusCode.OK)
         {
             this.isSuccess = true;
@@ -72,5 +70,5 @@ public class WebResult {
      */
     @Getter
     @Setter
-    private HttpStatusCode statusCode;
+    private HttpStatusCode code;
 }
