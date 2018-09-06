@@ -1,4 +1,6 @@
 ## moni-webapi 
+
+[![Build Status](https://travis-ci.org/cotide/moni-webapi.svg?branch=master)](https://travis-ci.org/cotide/moni-webapi)
  
  基于SpringBoot的WebApi示例
  
