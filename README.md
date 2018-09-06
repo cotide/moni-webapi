@@ -74,6 +74,9 @@ data | 数据
 
 > 4.使用[sql2o-plus](https://github.com/cotide/sql2o-plus)
 
+## 资源
+
+- [示例数据库脚本](https://github.com/cotide/moni-webapi/wiki/%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E8%84%9A%E6%9C%AC)
 
 ## 待续
 
