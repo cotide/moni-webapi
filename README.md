@@ -75,25 +75,30 @@ data | 数据
 
 ![Swagger的集成 (多版本) ](http://ww1.sinaimg.cn/large/7c2c6ab7gy1fv82d53swlj20i3067glq.jpg)
  
-
 ### 3.使用[sql2o-plus](https://github.com/cotide/sql2o-plus)
  
 ### 4.权限控制
 
-#### 4.1 Controller级别 - [@PowerFilter](src/main/java/com/gold/moni/webapi/filter/jwt/attr/PowerFilter.java)
+![权限控制](http://ww1.sinaimg.cn/large/7c2c6ab7gy1fv82lnhijij20zk0clt9m.jpg)
+
+需要权限访问的接口,请求时候需要带访问Token信息（Token鉴权使用[jwt](https://github.com/auth0/java-jwt)）
+
+#### 4.1 @PowerFilter
+
+控制器级别 - 标记该注解的Class需要权限才允许访问  
  
 ##### 4.1.1 使用
 
-继承[AuthApiController](src/main/java/com/gold/moni/webapi/controller/base/AuthApiController.java) 需要Token才允许访问
+继承[AuthApiController](src/main/java/com/gold/moni/webapi/controller/base/AuthApiController.java)  
+ 
 
-   
+#### 4.2 @ActionPowerFilter  
 
-#### 4.2 Action级别 - [@ActionPowerFilter](src/main/java/com/gold/moni/webapi/filter/jwt/attr/ActionPowerFilter.java)
-
+Action级别 - 标记该注解的方法需要权限才允许访问
 
 ##### 4.2.1 使用
 
-使用@ActionPowerFilter注解标记到Action方法上
+对需要权限的方法标记@ActionPowerFilter注解 
 
 ```java
 @ActionPowerFilter 
