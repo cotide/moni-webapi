@@ -3,6 +3,8 @@ package com.gold.moni.webapi.config;
 import com.alibaba.fastjson.JSON;
 import com.gold.moni.helper.common.api.HttpStatusCode;
 import com.gold.moni.helper.common.api.WebResult;
+import com.google.common.collect.Ordering;
+import io.swagger.models.Operation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +33,15 @@ public class SwaggerConfig {
     @Value("${swagger.enable}")
     private boolean isEnable;
 
+
+    @Value("${jwt.header}")
+    private String tokenHeader;
+
+
+    @Value("${jwt.prefix}")
+    private String tokenPrefix;
+
+
     /**
      * 初始化Swagger
      * @param tag 标签: v1.0,v1.1,v1.2...
@@ -55,7 +66,7 @@ public class SwaggerConfig {
                 .directModelSubstitute(OffsetDateTime.class,java.util.Date.class)
                 .useDefaultResponseMessages(false)
                 // 自定义可选参数
-                //.globalOperationParameters(operationParameters())
+                .globalOperationParameters(operationParameters())
                 // 自定义全局相应格式
                 .globalResponseMessage(RequestMethod.GET,responseMessage())
                 .globalResponseMessage(RequestMethod.POST,responseMessage())
@@ -99,14 +110,14 @@ public class SwaggerConfig {
      */
     private ArrayList operationParameters()
     {
-
         ArrayList globalParameters = new ArrayList();
         globalParameters.add(new ParameterBuilder()
-                .name("header")
-                .description("Description of header")
+                .name(tokenHeader.toLowerCase())
+                .description("访问Token")
                 .modelRef(new ModelRef("string"))
                 .parameterType("header")
-                .required(true)
+                .required(false)
+                .defaultValue(tokenPrefix)
                 .build());
         return globalParameters;
     }

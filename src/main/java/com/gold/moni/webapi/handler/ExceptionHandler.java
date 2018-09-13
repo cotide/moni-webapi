@@ -1,17 +1,11 @@
 package com.gold.moni.webapi.handler;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.gold.moni.helper.common.api.HttpStatusCode;
 import com.gold.moni.helper.common.api.WebResult;
 import com.gold.moni.helper.exception.BusinessException;
-import com.gold.moni.helper.exception.UnauthenticatedException;
-import com.gold.moni.helper.fastjson.FastjsonFilterUtil;
+import com.gold.moni.helper.exception.PowerException;
 import com.gold.moni.helper.logging.Log4jUtil;
-import org.omg.CORBA.portable.ApplicationException;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,11 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class ApplicationExceptionResolver implements HandlerExceptionResolver {
+public class ExceptionHandler implements HandlerExceptionResolver {
 
 
     /**
@@ -59,7 +50,7 @@ public class ApplicationExceptionResolver implements HandlerExceptionResolver {
                     .getBindingResult()
                     .getFieldError().getDefaultMessage(),
                     HttpStatusCode.RequestDataError);
-        }else if (ex instanceof UnauthenticatedException) {
+        }else if (ex instanceof PowerException) {
             // 没有权限的异常
             model =  new WebResult(ex.getMessage(), HttpStatusCode.Unauthorized);
         }

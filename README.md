@@ -16,6 +16,7 @@
  - [sql2o-plus](https://github.com/cotide/sql2o-plus)
  - [log4j2](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-starters/spring-boot-starter-log4j2)
  - [fastjson](https://github.com/alibaba/fastjson) 
+ - [jwt](https://github.com/auth0/java-jwt)
 
  > 访问[pom.xml](pom.xml)
  
@@ -76,10 +77,19 @@ data | 数据
 
 > 4.使用[sql2o-plus](https://github.com/cotide/sql2o-plus)
 
+> 5.权限接口
+
+- Controller级别-[@PowerFilter](src/main/java/com/gold/moni/webapi/filter/jwt/attr/PowerFilter.java)
+- Action级别-[@ActionPowerFilter](src/main/java/com/gold/moni/webapi/filter/jwt/attr/ActionPowerFilter.java)
+
+示例
+
+> 继承[AuthApiController](src/main/java/com/gold/moni/webapi/controller/base/AuthApiController.java) 需要Token才允许访问
+
+   
+
 ## 资源
 
 - [示例数据库脚本](https://github.com/cotide/moni-webapi/wiki/%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E8%84%9A%E6%9C%AC)
 
-## 待续
-
-......
+ 

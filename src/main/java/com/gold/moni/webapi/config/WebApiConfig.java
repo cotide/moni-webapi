@@ -1,37 +1,27 @@
 package com.gold.moni.webapi.config;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.gold.moni.helper.common.api.HttpStatusCode;
-import com.gold.moni.helper.common.api.WebResult;
-import com.gold.moni.webapi.handler.ApplicationExceptionResolver;
+import com.gold.moni.tasks.UserInfoTask;
+import com.gold.moni.webapi.handler.ExceptionHandler;
+import com.gold.moni.webapi.handler.WebApiPowerHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import springfox.documentation.builders.*;
-import springfox.documentation.schema.ModelRef;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  *  swagger 配置
@@ -43,6 +33,10 @@ public class WebApiConfig  extends WebMvcConfigurationSupport
 {
     @Autowired
     protected SwaggerConfig swagger;
+
+
+    @Autowired
+    protected WebApiPowerHandler webApiPowerHandler;
 
     // region 版本定义
 
@@ -114,11 +108,21 @@ public class WebApiConfig  extends WebMvcConfigurationSupport
     public void configureHandlerExceptionResolvers(
             List<HandlerExceptionResolver> exceptionResolvers) {
         // 注入自定义异常处理
-        exceptionResolvers.add(new ApplicationExceptionResolver());
+        exceptionResolvers.add(new ExceptionHandler());
         super.configureHandlerExceptionResolvers(exceptionResolvers);
     }
 
 
+    /**
+     * 注册拦截器
+     * @param registry
+     */
+    @Override
+    public  void addInterceptors(InterceptorRegistry registry)
+    {
+        // JWT 验证
+        registry.addInterceptor(webApiPowerHandler);
+    }
     // region Helper
 
 }

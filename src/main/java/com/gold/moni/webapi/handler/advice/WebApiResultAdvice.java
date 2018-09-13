@@ -16,6 +16,9 @@ import java.lang.reflect.Executable;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author cotide
+ */
 @ControllerAdvice
 public class WebApiResultAdvice implements ResponseBodyAdvice {
     @Override

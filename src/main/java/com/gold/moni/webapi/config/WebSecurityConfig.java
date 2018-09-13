@@ -12,6 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+//    @Bean
+//    public JwtAuthenticationFilter jwtAuthenticationFilter(){
+//        return new JwtAuthenticationFilter();
+//    }
+
     private static final String[] AUTH_WHITELIST = {
             // -- swagger ui
             "/",
@@ -49,5 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 其他规则禁止访问
         .anyRequest().authenticated();
     }
+
+
 
 }

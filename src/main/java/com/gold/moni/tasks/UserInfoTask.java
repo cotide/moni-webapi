@@ -34,6 +34,19 @@ public class UserInfoTask extends BaseTask {
                 .where("user_id=@0",id));
     }
 
+    public UserInfoDto getByUserName(String userName)
+    {
+        Database db = openDb();
+        return db.getSqlQuery().getDto(UserInfoDto.class,
+                Sql.builder().select(
+                "user_id as userId," +
+                        "user_name as userName," +
+                        "login," +
+                        "create_time as createTime")
+                .from(UserInfo.class)
+                .where("user_name = @0",userName));
+    }
+
 
     public List<UserInfoDto> getList(){
 

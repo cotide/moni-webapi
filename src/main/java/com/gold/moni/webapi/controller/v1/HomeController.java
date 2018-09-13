@@ -17,5 +17,4 @@ public class HomeController extends BaseApiController {
     public String hello(){
         return "Hello World";
     }
-
 }

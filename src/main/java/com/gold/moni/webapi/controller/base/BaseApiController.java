@@ -1,7 +1,12 @@
 package com.gold.moni.webapi.controller.base;
 
-
-import org.springframework.web.bind.annotation.RestController;
-
+/**
+ * 控制器基类
+ */
 public abstract class BaseApiController {
+
+
+    public  BaseApiController(){
+
+    }
 }
