@@ -1,4 +1,4 @@
-package com.gold.moni.webapi.filter.jwt.common;
+package com.gold.moni.webapi.filter.jwt.data;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

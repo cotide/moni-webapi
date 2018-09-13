@@ -18,12 +18,12 @@
  - [fastjson](https://github.com/alibaba/fastjson) 
  - [jwt](https://github.com/auth0/java-jwt)
 
- > 访问[pom.xml](pom.xml)
+ > 访问 [pom.xml](pom.xml)
  
  
- ## 特点
+## 特点
  
-> 1.统一结果返回,格式如下:
+### 统一结果返回,格式如下:
  
  
 属性 | 描述  
@@ -34,7 +34,7 @@ msg | 消息
 data | 数据 
 
  
-- 没有结果数据-格式
+#### 没有结果数据-格式
 
 ```json
 {
@@ -44,7 +44,7 @@ data | 数据
 }
 ```
 
-- 有结果数据-格式
+#### 有结果数据-格式
  
 ```json
 {
@@ -60,7 +60,7 @@ data | 数据
 }
 ```
  
-- 异常数据-格式 
+#### 异常数据-格式 
  
 
 状态 | 描述 | JSON
@@ -71,22 +71,36 @@ data | 数据
 510 | 业务异常 | {"code":511,"isSuccess":false,"msg":"异常信息"}
 
  
-> 2.Swagger的集成 (多版本) 
+### Swagger的集成 (多版本) 
 
-> 3.使用fastJson进行解析响应
+### 统一JSON处理 (fastJson)
 
-> 4.使用[sql2o-plus](https://github.com/cotide/sql2o-plus)
+### 使用[sql2o-plus](https://github.com/cotide/sql2o-plus)
+ 
+### 权限控制
 
-> 5.权限接口
+#### Controller级别 - [@PowerFilter](src/main/java/com/gold/moni/webapi/filter/jwt/attr/PowerFilter.java)
 
-- Controller级别-[@PowerFilter](src/main/java/com/gold/moni/webapi/filter/jwt/attr/PowerFilter.java)
-- Action级别-[@ActionPowerFilter](src/main/java/com/gold/moni/webapi/filter/jwt/attr/ActionPowerFilter.java)
 
-示例
+##### 使用
 
-> 继承[AuthApiController](src/main/java/com/gold/moni/webapi/controller/base/AuthApiController.java) 需要Token才允许访问
+继承[AuthApiController](src/main/java/com/gold/moni/webapi/controller/base/AuthApiController.java) 需要Token才允许访问
 
    
+
+#### Action级别 - [@ActionPowerFilter](src/main/java/com/gold/moni/webapi/filter/jwt/attr/ActionPowerFilter.java)
+
+
+##### 使用
+
+使用@ActionPowerFilter注解标记到Action方法上
+
+```java
+@ActionPowerFilter 
+@RequestMapping(value = "get",method = RequestMethod.GET)
+public void get(){};
+```
+
 
 ## 资源
 

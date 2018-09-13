@@ -1,4 +1,4 @@
-package com.gold.moni.webapi.handler;
+package com.gold.moni.webapi.handler.advice;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.gold.moni.helper.common.api.HttpStatusCode;

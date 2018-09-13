@@ -7,6 +7,7 @@ import com.gold.moni.helper.exception.BusinessException;
 import com.gold.moni.tasks.UserInfoTask;
 import com.gold.moni.webapi.controller.base.AuthApiController;
 import com.gold.moni.webapi.controller.base.BaseApiController;
+import com.gold.moni.webapi.filter.jwt.attr.ActionPowerFilter;
 import com.gold.moni.webapi.vm.UserInfoVM;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;

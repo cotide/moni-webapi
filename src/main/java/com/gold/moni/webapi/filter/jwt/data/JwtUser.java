@@ -1,20 +1,16 @@
-package com.gold.moni.webapi.filter.jwt.common;
+package com.gold.moni.webapi.filter.jwt.data;
 
 import lombok.Getter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 import java.util.Date;
 
-@Getter
 public class JwtUser extends BaseUserDetails {
 
     /**
      * 主键Id
      */
     @Getter
-    private final Integer id;
+    private final int id;
 
     /**
      * 用户名
@@ -29,7 +25,7 @@ public class JwtUser extends BaseUserDetails {
     private final Date lastLoginDate;
 
     public JwtUser(
-            Integer id,
+            int id,
             String username,
             Date lastLoginDate) {
         this.id = id;

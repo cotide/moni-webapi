@@ -1,4 +1,4 @@
-package com.gold.moni.webapi.filter.jwt;
+package com.gold.moni.webapi.filter.jwt.attr;
 
 
 import java.lang.annotation.*;
