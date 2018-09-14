@@ -29,8 +29,11 @@ public class UserInfoTask extends BaseTask {
                         "user_id as userId," +
                         "user_name as userName," +
                         "login," +
-                        "create_time as createTime")
-                        .from(UserInfo.class)
+                        "create_time as createTime," +
+                        "status," +
+                        "level," +
+                        "`group`")
+                .from(UserInfo.class)
                 .where("user_id=@0",id));
     }
 
@@ -38,11 +41,15 @@ public class UserInfoTask extends BaseTask {
     {
         Database db = openDb();
         return db.getSqlQuery().getDto(UserInfoDto.class,
-                Sql.builder().select(
-                "user_id as userId," +
+                Sql.builder()
+                        .select(
+                        "user_id as userId," +
                         "user_name as userName," +
                         "login," +
-                        "create_time as createTime")
+                        "create_time as createTime," +
+                        "status," +
+                        "level," +
+                        "`group`")
                 .from(UserInfo.class)
                 .where("user_name = @0",userName));
     }
@@ -54,11 +61,14 @@ public class UserInfoTask extends BaseTask {
         return db.getSqlQuery().getDtoList(UserInfoDto.class,
                 Sql.builder()
                         .select(
-                            "user_id as userId," +
-                            "user_name as userName," +
-                            "login," +
-                            "create_time as createTime")
-                        .from(UserInfo.class));
+                        "user_id as userId," +
+                        "user_name as userName," +
+                        "login," +
+                        "create_time as createTime," +
+                        "status," +
+                        "level," +
+                        "`group`")
+                .from(UserInfo.class));
     }
 
 

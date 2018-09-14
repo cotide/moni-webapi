@@ -28,7 +28,10 @@ public class ExceptionHandler implements HandlerExceptionResolver {
         // 输出 异常信息
         logger.error("发生异常:", "[异常拦截]"+ ex.getMessage());
         // 将异常信息转json输出
-        this.writeJsonByFilter(response, this.resolveExceptionCustom(ex), null,
+        this.writeJsonByFilter(
+                response,
+                this.resolveExceptionCustom(ex),
+                null,
                 null);
         return new ModelAndView();
     }
@@ -48,7 +51,8 @@ public class ExceptionHandler implements HandlerExceptionResolver {
             // 实体验证异常
             model = new WebResult(((MethodArgumentNotValidException) ex)
                     .getBindingResult()
-                    .getFieldError().getDefaultMessage(),
+                    .getFieldError()
+                    .getDefaultMessage(),
                     HttpStatusCode.RequestDataError);
         }else if (ex instanceof PowerException) {
             // 没有权限的异常

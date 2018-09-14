@@ -87,7 +87,6 @@ public class JwtTokenUtil implements Serializable {
         JwtUser user = (JwtUser) userDetails;
         final String username = getUserNameFromToken(token);
         final Date created = getCreatedDateFromToken(token);
-        //final Date expiration = getExpirationDateFromToken(token);
         return (username.equals(user.getUsername())
                         && !isTokenExpired(token)
                         && isBeforeDate(created, user.getLastLoginDate()));

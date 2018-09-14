@@ -123,7 +123,7 @@ public class WebApiPowerHandler extends HandlerInterceptorAdapter {
         String username = jwtTokenUtil.getUserNameFromToken(authToken);
         if(username==null||username.trim().equals(""))
         {
-            throw new PowerException("User Access Permission Denied");
+            throw new PowerException();
         }
         // 读取用户数据
         UserDetails userDetails =  identityService.loadUserByUsername(username);

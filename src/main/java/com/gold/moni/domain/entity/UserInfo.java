@@ -1,5 +1,8 @@
 package com.gold.moni.domain.entity;
 
+import com.gold.moni.domain.entity.enums.EnumGroup;
+import com.gold.moni.domain.entity.enums.EnumUserStatus;
+import com.gold.moni.domain.entity.enums.EnumVipLevel;
 import io.github.cotide.dapper.basic.domain.Entity;
 import io.github.cotide.dapper.core.attr.Column;
 import io.github.cotide.dapper.core.attr.Ignore;
@@ -26,6 +29,15 @@ public class UserInfo extends Entity {
     private String password;
 
     private int login;
+
+    @Column("status")
+    private EnumUserStatus status;
+
+    @Column("level")
+    private EnumVipLevel level;
+
+    @Column("`group`")
+    private EnumGroup group;
 
     @Column("create_time")
     private Date createTime;
