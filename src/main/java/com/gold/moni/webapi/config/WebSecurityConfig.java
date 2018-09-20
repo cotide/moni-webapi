@@ -47,7 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void  configure(HttpSecurity http) throws Exception{
 
         // 禁止CSRF检查
-        http.cors().and().csrf()
+        http
+        .csrf()
         .disable()
         .authorizeRequests()
         // 允许访问规则
