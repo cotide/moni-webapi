@@ -66,7 +66,7 @@ public class SwaggerConfig {
                 .directModelSubstitute(OffsetDateTime.class,java.util.Date.class)
                 .useDefaultResponseMessages(false)
                 // 自定义可选参数
-                .globalOperationParameters(operationParameters())
+                //.globalOperationParameters(operationParameters())
                 // 自定义全局相应格式
                 .globalResponseMessage(RequestMethod.GET,responseMessage())
                 .globalResponseMessage(RequestMethod.POST,responseMessage())

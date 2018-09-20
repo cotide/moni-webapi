@@ -8,6 +8,8 @@ import com.gold.moni.domain.param.UpdateUserInfoParam;
 import com.gold.moni.tasks.UserInfoTask;
 import com.gold.moni.webapi.controller.base.BaseApiController;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +30,13 @@ public class UserInfo2Controller extends BaseApiController {
 
 
     @ApiOperation(value = "创建用户")
+    @ApiImplicitParams(value = {@ApiImplicitParam(
+            name = "authorization",
+            required = true,
+            dataType = "string",
+            paramType = "header",
+            defaultValue = "Bearer ",
+            value = "访问 Token")})
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public void add(@Valid @RequestBody CreateUserInfoParam parm)
     {
@@ -36,6 +45,13 @@ public class UserInfo2Controller extends BaseApiController {
 
 
     @ApiOperation(value = "修改用户")
+    @ApiImplicitParams(value = {@ApiImplicitParam(
+            name = "authorization",
+            required = true,
+            dataType = "string",
+            paramType = "header",
+            defaultValue = "Bearer ",
+            value = "访问 Token")})
     @RequestMapping(value = "create",method = RequestMethod.PUT)
     public void update(@Valid @RequestBody UpdateUserInfoParam parm)
     {

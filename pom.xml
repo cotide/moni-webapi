@@ -29,6 +29,8 @@
         <!-- jwt version -->
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <jjwt.version>0.9.1</jjwt.version>
+        <!-- poi version -->
+        <poi.version>4.0.0</poi.version>
     </properties>
     <repositories>
         <repository>
@@ -151,7 +153,17 @@
             <artifactId>persistence-api</artifactId>
             <version>${persistence-api.version}</version>
         </dependency>
-
+        <!-- poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -103,8 +103,41 @@ Action级别 - 标记该注解的方法需要权限才允许访问
 ```java
 @ActionPowerFilter 
 @RequestMapping(value = "get",method = RequestMethod.GET)
-public void get(){};
+public void get(){}
 ```
+
+
+### 5.自定义格式
+
+#### 5.1 @IgnoreRequestFilter 
+
+忽略全局格式,使用自定义格式
+
+```java
+@ApiOperation(value = "获取自定义格式")
+@IgnoreRequestFilter
+@RequestMapping(value = "getMyResult",method = RequestMethod.GET)
+public String getMyResult(){}
+```
+
+
+#### 5.2 @Download 
+
+文件下载
+
+```java
+@ApiOperation(value = "Excel下载")
+@Download
+@RequestMapping(value = "downloadExcel",method = RequestMethod.GET)
+public void downloadExcel(
+        HttpServletRequest request,
+        HttpServletResponse response)
+        throws IOException,
+        IllegalAccessException,
+        InstantiationException,
+        ClassNotFoundException {}
+```
+
 
 
 ## 资源
