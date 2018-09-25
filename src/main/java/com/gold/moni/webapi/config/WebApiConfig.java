@@ -133,10 +133,12 @@ public class WebApiConfig  extends WebMvcConfigurationSupport
      */
     @Override
     protected void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedHeaders("*")
-                .allowedMethods("*")
-                .allowedOrigins("*");
+
+        registry.addMapping("/api/**")
+                .allowedMethods("GET", "POST", "PUT", "DELETE","OPTIONS")
+                .allowedOrigins("*")
+                .allowedHeaders("*");
+
     }
 
 }

@@ -6,6 +6,7 @@ import com.gold.moni.helper.common.api.WebResult;
 import com.gold.moni.helper.exception.BusinessException;
 import com.gold.moni.helper.exception.PowerException;
 import com.gold.moni.helper.logging.Log4jUtil;
+import com.sun.org.apache.bcel.internal.generic.RET;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 public class ExceptionHandler implements HandlerExceptionResolver {
 
@@ -26,7 +29,8 @@ public class ExceptionHandler implements HandlerExceptionResolver {
     public ModelAndView resolveException(HttpServletRequest request,
                                          HttpServletResponse response, Object handler, Exception ex) {
         // 输出 异常信息
-        logger.error("发生异常:", "[异常拦截]"+ ex.getMessage());
+        logger.error("发生异常:", "[异常拦截]"+ getExceptionMsg(ex));
+
         // 将异常信息转json输出
         this.writeJsonByFilter(
                 response,
@@ -46,6 +50,8 @@ public class ExceptionHandler implements HandlerExceptionResolver {
     private WebResult resolveExceptionCustom(Exception ex) {
 
         WebResult model;
+        String errorMsg = ex.getMessage()==null?ex.toString():ex.getMessage();
+
         if(ex instanceof  MethodArgumentNotValidException)
         {
             // 实体验证异常
@@ -56,20 +62,20 @@ public class ExceptionHandler implements HandlerExceptionResolver {
                     HttpStatusCode.RequestDataError);
         }else if (ex instanceof PowerException) {
             // 没有权限的异常
-            model =  new WebResult(ex.getMessage(), HttpStatusCode.Unauthorized);
+            model =  new WebResult(errorMsg, HttpStatusCode.Unauthorized);
         }
         else if(ex instanceof BusinessException)
         {
             // 业务异常
-            model =  new  WebResult(ex.getMessage(),HttpStatusCode.BusinessError);
+            model =  new  WebResult(errorMsg,HttpStatusCode.BusinessError);
         }
         else {
 
             // 未知错误
-            model =  new WebResult(ex.getMessage(), HttpStatusCode.InternalServerError);
+            model =  new WebResult(errorMsg, HttpStatusCode.InternalServerError);
         }
         return model==null
-                ?new WebResult(ex.getMessage(),HttpStatusCode.InternalServerError)
+                ?new WebResult(errorMsg,HttpStatusCode.InternalServerError)
                 :model;
     }
 
@@ -93,4 +99,17 @@ public class ExceptionHandler implements HandlerExceptionResolver {
     }
 
 
+    private String getExceptionMsg(Exception ex) {
+        if(ex.getMessage() != null)
+        {
+            return ex.getMessage();
+        }
+        try(StringWriter stack = new StringWriter()){
+            ex.printStackTrace(new PrintWriter(stack));
+            return "["+ex.toString()+"]\n\t[" + stack.toString()+"]";
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ex.getMessage();
+    }
 }
