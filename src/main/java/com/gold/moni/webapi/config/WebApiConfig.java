@@ -39,6 +39,11 @@ public class WebApiConfig  extends WebMvcConfigurationSupport
     @Autowired
     protected WebApiPowerHandler webApiPowerHandler;
 
+
+    @Autowired
+    protected ExceptionHandler exceptionHandler;
+
+
     // region 版本定义
 
     @Bean
@@ -109,7 +114,7 @@ public class WebApiConfig  extends WebMvcConfigurationSupport
     public void configureHandlerExceptionResolvers(
             List<HandlerExceptionResolver> exceptionResolvers) {
         // 注入自定义异常处理
-        exceptionResolvers.add(new ExceptionHandler());
+        exceptionResolvers.add(exceptionHandler);
         super.configureHandlerExceptionResolvers(exceptionResolvers);
     }
 

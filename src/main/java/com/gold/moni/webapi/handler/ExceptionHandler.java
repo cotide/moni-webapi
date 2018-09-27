@@ -7,6 +7,8 @@ import com.gold.moni.helper.exception.BusinessException;
 import com.gold.moni.helper.exception.PowerException;
 import com.gold.moni.helper.logging.Log4jUtil;
 import com.sun.org.apache.bcel.internal.generic.RET;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +19,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+
+@Component
 public class ExceptionHandler implements HandlerExceptionResolver {
+
+
+    /**
+     * 是否Debug模式
+     */
+    @Value("${global.debug:false}")
+    private boolean isDebug;
+
+
 
 
     /**
@@ -50,8 +63,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
     private WebResult resolveExceptionCustom(Exception ex) {
 
         WebResult model;
-        String errorMsg = ex.getMessage()==null?ex.toString():ex.getMessage();
-
+        String errorMsg = getExceptionMsg(ex,isDebug);
         if(ex instanceof  MethodArgumentNotValidException)
         {
             // 实体验证异常
@@ -98,18 +110,36 @@ public class ExceptionHandler implements HandlerExceptionResolver {
         }
     }
 
+    // region Helper
 
     private String getExceptionMsg(Exception ex) {
-        if(ex.getMessage() != null)
-        {
-            return ex.getMessage();
-        }
-        try(StringWriter stack = new StringWriter()){
-            ex.printStackTrace(new PrintWriter(stack));
-            return "["+ex.toString()+"]\n\t[" + stack.toString()+"]";
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ex.getMessage();
+        return getExceptionMsg(ex,true);
     }
+
+    private String getExceptionMsg(Exception ex,boolean isDebug) {
+
+        if(isDebug)
+        {
+            // Debug模式
+            try(StringWriter stack = new StringWriter()){
+                ex.printStackTrace(new PrintWriter(stack));
+                return "["+
+                        ex.getMessage()==null
+                        ?ex.toString()
+                        :ex.getMessage()+"]\n\t[" + stack.toString()+"]";
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+            return ex.getMessage();
+        }else{
+            if(ex.getMessage() != null)
+            {
+                return ex.getMessage();
+            }else{
+                return ex.toString();
+            }
+        }
+    }
+
+    // endregion
 }
