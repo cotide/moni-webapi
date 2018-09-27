@@ -123,10 +123,11 @@ public class ExceptionHandler implements HandlerExceptionResolver {
             // Debug模式
             try(StringWriter stack = new StringWriter()){
                 ex.printStackTrace(new PrintWriter(stack));
-                return "["+
-                        ex.getMessage()==null
-                        ?ex.toString()
-                        :ex.getMessage()+"]\n\t[" + stack.toString()+"]";
+                return String.format("[%s][%s]",
+                        (ex.getMessage()==null
+                                ?ex.toString()
+                                :ex.getMessage()),
+                        stack.toString()); 
             }catch (IOException e) {
                 e.printStackTrace();
             }
