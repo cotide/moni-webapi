@@ -1,6 +1,6 @@
 package com.gold.moni.domain.cmd;
 
-import com.gold.moni.helper.common.Guard;
+import io.github.cotide.dapper.core.utility.Guard;
 import lombok.Getter;
 
 /**

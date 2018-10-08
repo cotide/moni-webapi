@@ -127,7 +127,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
                         (ex.getMessage()==null
                                 ?ex.toString()
                                 :ex.getMessage()),
-                        stack.toString()); 
+                        stack.toString());
             }catch (IOException e) {
                 e.printStackTrace();
             }

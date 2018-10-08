@@ -7,6 +7,7 @@ import com.gold.moni.domain.param.CreateUserInfoParam;
 import com.gold.moni.domain.param.UpdateUserInfoParam;
 import com.gold.moni.tasks.UserInfoTask;
 import com.gold.moni.webapi.controller.base.BaseApiController;
+import com.gold.moni.webapi.filter.jwt.attr.ActionPowerFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -30,20 +31,12 @@ public class UserInfo2Controller extends BaseApiController {
 
 
     @ApiOperation(value = "创建用户")
-    @ApiImplicitParams(value = {@ApiImplicitParam(
-            name = "authorization",
-            required = true,
-            dataType = "string",
-            paramType = "header",
-            defaultValue = "Bearer ",
-            value = "访问 Token")})
-    @RequestMapping(value = "add",method = RequestMethod.POST)
     public void add(@Valid @RequestBody CreateUserInfoParam parm)
     {
         userInfoTask.add(new CreateUserInfoCmd(parm.getUserName()));
     }
 
-
+    @ActionPowerFilter
     @ApiOperation(value = "修改用户")
     @ApiImplicitParams(value = {@ApiImplicitParam(
             name = "authorization",
