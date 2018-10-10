@@ -10,8 +10,10 @@ import com.gold.moni.webapi.handler.WebApiPowerHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -90,7 +92,7 @@ public class WebApiConfig  extends WebMvcConfigurationSupport
     public void configureMessageConverters(
             List<HttpMessageConverter<?>> converters) {
 
-        super.configureMessageConverters(converters);
+        // Json处理
         // 1.定义一个convert 转换消息的对象
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         // 2 添加fastjson 的配置信息 比如 是否要格式化 返回的json数据
@@ -104,6 +106,11 @@ public class WebApiConfig  extends WebMvcConfigurationSupport
         fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
         fastConverter.setSupportedMediaTypes(fastMediaTypes);
         converters.add(fastConverter);
+
+        // Byte格式处理
+        ByteArrayHttpMessageConverter arrayHttpMessageConverter = new ByteArrayHttpMessageConverter();
+        converters.add(arrayHttpMessageConverter);
+        super.configureMessageConverters(converters);
     }
 
     /**
@@ -146,4 +153,19 @@ public class WebApiConfig  extends WebMvcConfigurationSupport
 
     }
 
+
+    /**
+     * Byte类型处理
+     * @return
+     */
+    @Bean
+    public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
+        ByteArrayHttpMessageConverter arrayHttpMessageConverter = new ByteArrayHttpMessageConverter();
+        List<MediaType> list = new ArrayList<MediaType>();
+        list.add(MediaType.IMAGE_JPEG);
+        list.add(MediaType.IMAGE_PNG);
+        list.add(MediaType.APPLICATION_OCTET_STREAM);
+        arrayHttpMessageConverter.setSupportedMediaTypes(list);
+        return arrayHttpMessageConverter;
+    }
 }

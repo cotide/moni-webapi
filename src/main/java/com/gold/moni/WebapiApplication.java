@@ -6,11 +6,13 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 
 /**
  * 程序入口
  */
+@EnableCaching
 @SpringBootApplication
 public class WebapiApplication  extends SpringBootServletInitializer {
 

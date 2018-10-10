@@ -8,6 +8,7 @@ import com.gold.moni.webapi.filter.jwt.data.JwtUser;
 import io.github.cotide.dapper.Database;
 import io.github.cotide.dapper.query.Sql;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,12 +20,12 @@ import java.util.Date;
 /**
  * @author cotide
  */
+
 @Service
 public class IdentityService extends BaseTask implements UserDetailsService {
 
 
     @Override
-    @Cacheable(value = "loadUserByUsername",key = "#userName")
     public UserDetails loadUserByUsername(
             String userName) throws UsernameNotFoundException {
 

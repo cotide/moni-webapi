@@ -31,6 +31,8 @@
         <jjwt.version>0.9.1</jjwt.version>
         <!-- poi version -->
         <poi.version>4.0.0</poi.version>
+        <!-- qr version -->
+        <qr.version>3.3.3</qr.version>
     </properties>
     <repositories>
         <repository>
@@ -163,6 +165,17 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>${poi.version}</version>
+        </dependency>
+        <!-- qr -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${qr.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>${qr.version}</version>
         </dependency>
     </dependencies>
     <build>

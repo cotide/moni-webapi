@@ -139,6 +139,41 @@ public void downloadExcel(
 ```
 
 
+### 6 图片二维码合并输出 (缓存)
+
+```code
+@Download
+@Cacheable(value = "qr_getGithubQR",key = "#userName")
+@Scheduled(fixedRate = ONE_DAY )
+@ApiOperation(value = "获取Github二维码")
+@RequestMapping(
+        value = "getGithubQR",
+        method = RequestMethod.GET,
+        produces = MediaType.IMAGE_PNG_VALUE
+)
+public byte[] getGithubQR(String userName)
+        throws IOException, WriterException {
+
+    BufferedImage in = ImageIO.read(getClass().getResourceAsStream("/static/img/rq_bg.png"));
+    if(in==null)
+    {
+        throw new NullPointerException("未找到背景图");
+    }
+    BufferedImage qrImg = QRCodeUtil.toBufferedImage("https://github.com/"+userName,240,240);
+    BufferedImage outPut = QRCodeUtil.mergeImage(in,qrImg,200,170);
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    try {
+        ImageIO.write(outPut, "png", output);
+        output.flush();
+        return output.toByteArray();
+    }finally {
+        output.close();
+    }
+}
+
+```
+
+![图片二维码合并输出 (缓存)](http://ww1.sinaimg.cn/large/7c2c6ab7gy1fw37s7urcqj20fj0bt74v.jpg)
 
 ## 资源
 
