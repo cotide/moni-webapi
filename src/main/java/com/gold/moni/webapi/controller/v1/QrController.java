@@ -1,6 +1,6 @@
 package com.gold.moni.webapi.controller.v1;
 
-import com.gold.moni.helper.common.qr.QRCodeUtil;
+import com.gold.moni.webapi.helper.common.qr.QRCodeUtil;
 import com.gold.moni.webapi.config.attr.Download;
 import com.gold.moni.webapi.controller.base.BaseApiController;
 import com.google.zxing.WriterException;

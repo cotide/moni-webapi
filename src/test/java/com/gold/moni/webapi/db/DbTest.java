@@ -1,6 +1,6 @@
 package com.gold.moni.webapi.db;
 
-import com.gold.moni.domain.entity.UserInfo;
+import com.gold.moni.webapi.domain.entity.UserInfo;
 import com.gold.moni.webapi.base.BaseTest;
 import io.github.cotide.dapper.Database;
 import io.github.cotide.dapper.repository.inter.IRepository;

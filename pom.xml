@@ -2,36 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.gold.moni</groupId>
-    <artifactId>webapi</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name>webapp</name>
-    <description>模拟盘 webapp</description>
-    <!-- spring boot  -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.1.4.RELEASE</version>
+        <relativePath/>
     </parent>
+    <groupId>com.gold.moni</groupId>
+    <artifactId>webapi</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>webapp</name>
+    <description>模拟盘 webapp</description>
     <properties>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <sql2o-plus.version>1.0.1-SNAPSHOT</sql2o-plus.version>
+        <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
+        <tomcat-servlet-api.version>9.0.19</tomcat-servlet-api.version>
+        <sql2o-plus.version>1.0.4-SNAPSHOT</sql2o-plus.version>
         <fastjson.version>1.2.49</fastjson.version>
         <druid.version>1.1.10</druid.version>
         <springfox.version>2.9.2</springfox.version>
-        <!-- mysql version -->
         <mysql.version>8.0.11</mysql.version>
         <persistence-api.version>1.0.2</persistence-api.version>
-        <!-- jwt version -->
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <!-- poi version -->
         <poi.version>4.0.0</poi.version>
-        <!-- qr version -->
         <qr.version>3.3.3</qr.version>
     </properties>
     <repositories>
@@ -57,16 +54,18 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
-                <!--&lt;!&ndash; 排除内置的JPA组件 &ndash;&gt;-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.springframework.boot</groupId>-->
-                    <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
-                <!--</exclusion>-->
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 排除Tomcat包 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -76,10 +75,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-actuator</artifactId>
         </dependency>
         <!-- springboot cache -->
         <dependency>
@@ -143,6 +138,11 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+        <!-- freemarker -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
         <!-- test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -177,12 +177,28 @@
             <artifactId>javase</artifactId>
             <version>${qr.version}</version>
         </dependency>
+        <!--  解决Tomcat运行需要的包 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>${tomcat-servlet-api.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

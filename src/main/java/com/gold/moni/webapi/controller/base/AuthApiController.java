@@ -2,11 +2,8 @@ package com.gold.moni.webapi.controller.base;
 
 import com.gold.moni.webapi.filter.jwt.attr.PowerFilter;
 import com.gold.moni.webapi.filter.jwt.data.JwtUser;
-import com.gold.moni.webapi.vm.UserInfoVM;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import com.gold.moni.webapi.domain.vm.UserInfoVM;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 /**
  * 权限控制器

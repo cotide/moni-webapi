@@ -1,8 +1,8 @@
 package com.gold.moni.webapi.controller.v1.partial_1;
 
 
-import com.gold.moni.domain.dto.UserInfoDto;
-import com.gold.moni.tasks.UserInfoTask;
+import com.gold.moni.webapi.domain.dto.UserInfoDto;
+import com.gold.moni.webapi.tasks.UserInfoTask;
 import com.gold.moni.webapi.controller.base.BaseApiController;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;

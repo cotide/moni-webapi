@@ -4,14 +4,12 @@ package com.gold.moni.webapi.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.gold.moni.tasks.UserInfoTask;
+import com.gold.moni.webapi.tasks.UserInfoTask;
 import com.gold.moni.webapi.handler.ExceptionHandler;
 import com.gold.moni.webapi.handler.WebApiPowerHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -31,7 +29,6 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
-@Profile({ "dev", "local" })
 public class WebApiConfig  extends WebMvcConfigurationSupport
 {
     @Autowired

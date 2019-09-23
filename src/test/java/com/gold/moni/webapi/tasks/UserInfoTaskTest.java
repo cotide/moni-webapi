@@ -1,7 +1,7 @@
 package com.gold.moni.webapi.tasks;
 
-import com.gold.moni.domain.dto.UserInfoDto;
-import com.gold.moni.tasks.UserInfoTask;
+import com.gold.moni.webapi.domain.dto.UserInfoDto;
+import com.gold.moni.webapi.tasks.UserInfoTask;
 import com.gold.moni.webapi.base.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

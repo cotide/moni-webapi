@@ -1,11 +1,11 @@
 package com.gold.moni.webapi.controller.v2;
 
 
-import com.gold.moni.domain.cmd.CreateUserInfoCmd;
-import com.gold.moni.domain.cmd.UpdateUserInfoCmd;
-import com.gold.moni.domain.param.CreateUserInfoParam;
-import com.gold.moni.domain.param.UpdateUserInfoParam;
-import com.gold.moni.tasks.UserInfoTask;
+import com.gold.moni.webapi.domain.cmd.CreateUserInfoCmd;
+import com.gold.moni.webapi.domain.cmd.UpdateUserInfoCmd;
+import com.gold.moni.webapi.domain.param.CreateUserInfoParam;
+import com.gold.moni.webapi.domain.param.UpdateUserInfoParam;
+import com.gold.moni.webapi.tasks.UserInfoTask;
 import com.gold.moni.webapi.controller.base.BaseApiController;
 import com.gold.moni.webapi.filter.jwt.attr.ActionPowerFilter;
 import io.swagger.annotations.Api;

@@ -1,6 +1,6 @@
 package com.gold.moni.webapi;
 
-import com.gold.moni.helper.logging.Log4jUtil;
+import com.gold.moni.webapi.helper.logging.Log4jUtil;
 import com.gold.moni.webapi.base.BaseTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;

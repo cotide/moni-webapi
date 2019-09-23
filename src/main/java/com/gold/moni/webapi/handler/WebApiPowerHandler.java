@@ -1,17 +1,13 @@
 package com.gold.moni.webapi.handler;
 
-import com.gold.moni.domain.dto.UserInfoDto;
-import com.gold.moni.helper.exception.PowerException;
-import com.gold.moni.tasks.UserInfoTask;
-import com.gold.moni.tasks.identity.IdentityService;
-import com.gold.moni.webapi.controller.base.AuthApiController;
+import com.gold.moni.webapi.helper.exception.PowerException;
+import com.gold.moni.webapi.tasks.UserInfoTask;
+import com.gold.moni.webapi.tasks.identity.IdentityService;
 import com.gold.moni.webapi.filter.jwt.JwtTokenUtil;
 import com.gold.moni.webapi.filter.jwt.attr.ActionPowerFilter;
 import com.gold.moni.webapi.filter.jwt.attr.PowerFilter;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
