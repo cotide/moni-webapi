@@ -28,7 +28,7 @@
         <persistence-api.version>1.0.2</persistence-api.version>
         <spring-security-jwt.version>1.0.9.RELEASE</spring-security-jwt.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <poi.version>4.0.0</poi.version>
+        <poi.version>4.1.1</poi.version>
         <qr.version>3.3.3</qr.version>
     </properties>
     <repositories>
